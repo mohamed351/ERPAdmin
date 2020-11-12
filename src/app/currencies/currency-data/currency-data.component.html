@@ -1,0 +1,47 @@
+
+  <button mat-flat-button color="primary" class="btn-add" (click)="NavigateToCreate()">
+     <mat-icon>control_point</mat-icon>  Create Currency
+    </button>
+
+
+<ng-container *ngIf="CurrencyData.length == 0 then loader else dataTableData ">
+
+</ng-container>
+
+
+<ng-template #loader>
+    <div class="flex-container-spinner">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+</ng-template>
+
+<ng-template #dataTableData>
+    <table class="table-responsive">
+        <thead>
+            <th>Currency Code </th>
+            <th>CurrencyName</th>
+            <th>Currency Symbol</th>
+            <th>Base Currency</th>
+            <th>Exchange Rate</th>
+            <th>Valid From</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of CurrencyData">
+                <td>{{item.crrNAMEE}}</td>
+                <td>{{item.crrNAME}}</td>
+                <td>{{item.crrSymbol}}</td>
+                <td><input type="checkbox" [checked]="item.dfltCrncy"  disabled readonly="readonly"> </td>
+                <td>{{item.roe}}</td>
+                <td>{{item.fdate|date}}</td>
+                <td>
+                    <a [routerLink]="['Edit',item.crrID]" mat-raised-button color="primary" >Edit</a> | 
+                     <a (click)="ShowDailog(item.crrNAME, item.crrID)" mat-raised-button color="warn">Delete</a>
+                </td>
+
+
+            </tr>
+        </tbody>
+    </table>
+   
+</ng-template>

@@ -1,0 +1,335 @@
+
+ <mat-toolbar color="primary">
+    <span>Client</span>
+  </mat-toolbar>
+<mat-card>
+  
+    <form [formGroup]="form"  (ngSubmit)="SubmitData()">
+        <mat-vertical-stepper  #stepper>
+          
+            <mat-step>
+                <ng-template matStepLabel>Personal Info</ng-template>
+        <mat-form-field class="full-width-control">
+            <mat-label>Client Name</mat-label>
+            <input matInput formControlName="ClientName" class="full-width-control">
+            <mat-error>
+                <mat-error *ngIf="ClientName.touched && ClientName.errors">
+                    <mat-error *ngIf="ClientName.errors.required">The Client Name is Requried </mat-error>
+                </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+
+    <ng-select [items]="employees"  
+           bindLabel="employee_Name" 
+           bindValue="employee_ID"
+          
+           (search)="SelectElement($event)" 
+           formControlName ="Sales"
+           [placeholder]="'Sales'"
+           >
+    </ng-select>
+    <mat-error *ngIf="Sales.touched && Sales.errors">
+            <mat-error *ngIf="Sales.errors.required">The Sales is Required </mat-error>
+    </mat-error>
+    <br>
+    
+    <mat-form-field class="full-width-control">
+        <mat-label>Client Phone</mat-label>
+        <input matInput formControlName="ClientPhone" class="full-width-control">
+        <mat-error>
+            <mat-error *ngIf="ClientPhone.touched && ClientPhone.errors">
+                <mat-error *ngIf="ClientPhone.errors.required">The  ClientPhone is Requried </mat-error>
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Client Phone 2</mat-label>
+        <input matInput formControlName="ClientPhone2" class="full-width-control">
+      </mat-form-field>
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Fax </mat-label>
+        <input matInput formControlName="Fax" class="full-width-control">
+
+        <mat-error>
+            <mat-error *ngIf="Fax.touched && Fax.errors">
+                <mat-error *ngIf="Fax.errors.required">The  Fax is Requried </mat-error>
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Email </mat-label>
+        <input matInput formControlName="Email" class="full-width-control">
+
+        <mat-error>
+            <mat-error *ngIf="Email.touched && Email.errors">
+                <mat-error *ngIf="Email.errors.required">The  Email is Requried </mat-error>
+                <mat-error *ngIf="Email.errors.email">The Email pattern is not Valid </mat-error>
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Tax Certificate </mat-label>
+        <input matInput formControlName="TaxCertificate" class="full-width-control">
+
+        <mat-error>
+            <mat-error *ngIf="TaxCertificate.touched && TaxCertificate.errors">
+                <mat-error *ngIf="TaxCertificate.errors.required">The Tax Certiication is Required </mat-error>
+               
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Commercial Register </mat-label>
+        <input matInput formControlName="CommercialRegister" class="full-width-control">
+
+      </mat-form-field>
+
+      <input type="file" #inputFile (change)="fileChangeEvent($event)" />
+
+      <ng-container *ngIf="this.imageBase64 != null">
+          <div class="container-image">
+      <img  [src]="this.imageBase64" >
+    </div>
+    </ng-container>
+
+      
+
+</mat-step> 
+
+<mat-step>
+    <ng-template matStepLabel>Address</ng-template>
+
+    <mat-form-field class="full-width-control">
+        <mat-label>Client Address</mat-label>
+        <input matInput formControlName="ClientAddress" class="full-width-control">
+       
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Client Billing Address</mat-label>
+        <input matInput formControlName="ClientBillingAddress" class="full-width-control">
+      
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Reference Contract</mat-label>
+        <input matInput formControlName="ReferenceContract" class="full-width-control">
+        
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Client Lines BL Address</mat-label>
+        <input matInput formControlName="ClientLinesBLAddress" class="full-width-control">
+        
+      </mat-form-field>
+
+      <mat-form-field class="full-width-control">
+        <mat-label>Website</mat-label>
+        <input matInput formControlName="WebSite" class="full-width-control">
+        
+      </mat-form-field>
+
+     
+    <ng-select [items]="Countries"  
+    bindLabel="country_Name" 
+    bindValue="country_ID"
+    
+    (search)="SelectCountry($event)" 
+    formControlName ="CountryID"
+    [placeholder]="'Country'"
+    >
+    </ng-select>
+
+
+    <mat-form-field class="full-width-control">
+        <mat-label>Bank Details</mat-label>
+        <textarea matInput formControlName="BankDetails" class="full-width-control">
+        </textarea>
+        <mat-error>
+            <mat-error *ngIf="BankDetails.touched && BankDetails.errors">
+                <mat-error *ngIf="BankDetails.errors.required"> The Bank Details is Required </mat-error>
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <div>
+        <mat-checkbox formControlName="PreventClientFromOperation">Prevent Client From Operation</mat-checkbox>
+      </div>
+
+</mat-step>
+
+<mat-step>
+    <ng-template matStepLabel>Client Credit</ng-template>
+    
+    <mat-form-field class="full-half-width">
+        <mat-label>Day</mat-label>
+        <input matInput [formControl]="ClientCreditDay" class="full-width-control">
+       
+        <mat-error>
+            <mat-error *ngIf="ClientCreditDay.touched && ClientCreditDay.errors">
+                <mat-error *ngIf="ClientCreditDay.errors.required"> The Day is Required </mat-error>
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-half-width">
+        <mat-label>Limit</mat-label>
+        <input matInput [formControl]="ClientCreditLimit" class="full-width-control">
+       
+        <mat-error>
+            <mat-error *ngIf="ClientCreditLimit.touched && ClientCreditLimit.errors">
+                <mat-error *ngIf="ClientCreditLimit.errors.required"> The Day is Required </mat-error>
+            </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+</mat-step>
+<ng-template matStepLabel>Client Credit</ng-template>
+<mat-step>
+    <ng-template matStepLabel>Other Data</ng-template>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Persons In Charge">
+            <button type="button" mat-button color="primary" (click)="AddNewPersonChargeRow()">Add Row +</button>
+           <div class="person-container" formArrayName="PersonalInCharge">
+           <div *ngFor="let item of PersonalInCharge.controls ; let i = index">
+            <div [formGroupName]="i">
+                <mat-form-field>
+                <input matInput formControlName="title" placeholder="Title">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput formControlName="name" placeholder="Name">
+            </mat-form-field>
+                <mat-form-field>
+                <input matInput formControlName="phone1" placeholder=" Phone">
+                </mat-form-field>
+                <mat-form-field>
+                <input matInput formControlName="phone2" placeholder="Phone2">
+                </mat-form-field>
+                <mat-form-field>
+                <input matInput formControlName="email" placeholder="Email">
+                </mat-form-field>
+                <button type="button" (click)="deletePersonInChargeRow(item, i)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                    <mat-icon>close</mat-icon>
+                  </button>
+              </div>
+           </div>
+        </div>
+        </mat-tab>
+        <mat-tab label="First Balance">
+            <button type="button" mat-button color="primary" (click)="AddFirstBalance()">Add Row +</button>
+            <div class="first-balance">
+                <div class="firstBalance-container" formArrayName="FirstBalance">
+                    <div *ngFor="let item of FirstBalance.controls ; let i = index">
+                        <div [formGroupName]="i">
+                        <mat-form-field>
+                            <input matInput type="number" formControlName="contactBalance" placeholder="Title">
+                        </mat-form-field>
+                     
+
+                            <mat-form-field >
+                                <mat-label> Balance Currency </mat-label>
+                                <mat-select formControlName="balanceCurrency">
+                                  <mat-option  *ngFor="let item of currencies" [value]="item.crrID">
+                                    {{item.crrNAME}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                         
+                     
+                        <button type="button" (click)="deleteFirstBalance(item, i)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                    </div>
+                    </div>
+                 </div>
+
+            </div>
+
+
+
+        </mat-tab>
+        <mat-tab label="NetWork">  
+            <button type="button" mat-button color="primary" (click)="addNetWork()">Add Row +</button>
+            <div class="network">
+                <div class="netWork-container" formArrayName="NetWork">
+                    <div *ngFor="let item of NetWork.controls ; let i = index">
+                        <div [formGroupName]="i">
+                            <mat-form-field >
+                                <mat-label> Group </mat-label>
+                                <mat-select formControlName="group">
+                                  <mat-option  *ngFor="let item of contactsGroups" [value]="item.contactGroup_ID">
+                                    {{item.contactGroup_Name}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+
+                              <mat-form-field class="example-full-width">
+                                <mat-label>Exprie Date</mat-label>
+                                <input matInput [matDatepicker]="picker3" formControlName="expireDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                              </mat-form-field>
+
+                              <button type="button" (click)="deleteNewWork(item, i)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                        </div>
+                     </div>
+                </div>
+                </div>
+        </mat-tab>
+      </mat-tab-group>
+</mat-step>
+<mat-step>
+    <ng-template matStepLabel>Accounting Guidance  </ng-template>
+ <mat-form-field class="full-width-control">
+  
+        <mat-label> Account </mat-label>
+        <mat-select formControlName="Accts">
+          <mat-option  *ngFor="let item of Accounts" [value]="item.id">
+            {{item.accName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-checkbox formControlName="IsRevalue">Re-Evaluate</mat-checkbox>
+
+
+</mat-step>
+ </mat-vertical-stepper>
+<button type="submit" mat-flat-button color="primary" [disabled]="this.form.invalid">Submit</button>
+
+
+
+</form>
+  
+  
+
+</mat-card>
+
+<div [ngStyle]="{'display': !IsCropperDivShown ? 'none':'block'}" class="client-container">
+   
+    <div class="flex-container">
+        <button type="button" mat-flat-button color="warn" (click)="handleCancelButton(inputFile)">Cancel</button>
+        <button type="button" mat-flat-button color="primary" (click)="handelOkButton(inputFile)">Ok</button>
+    </div>
+    <image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="4 / 4"
+    format="png"
+    [resizeToWidth]="200"
+    
+    (imageCropped)="imageCropped($event)"
+></image-cropper>
+</div>

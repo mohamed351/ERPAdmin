@@ -1,0 +1,95 @@
+<ng-template #AuthicatedUser>
+<mat-sidenav-container  class="sidenav-container">
+  <mat-sidenav id="sidevarContainer" #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <img src="../assets/logo.png" width="150" />
+    </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-nav-list>
+      <mat-accordion>
+        <a mat-list-item routerLink="/">Home</a>
+        <mat-expansion-panel (opened)="homePanelOpenState = true"
+                             (closed)="homePanelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+             Master Data
+            </mat-panel-title>
+          
+          </mat-expansion-panel-header>
+          <a mat-list-item href="#">Company</a>
+          <a mat-list-item routerLink="/client">Client</a>
+          <a mat-list-item href="#">Supplier</a>
+          <a mat-list-item routerLink="/currency">Currences</a>
+          <a mat-list-item href="#">Services</a>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+      
+        <mat-expansion-panel (opened)="financePanelOpenState = true"
+                             (closed)="financePanelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Finance
+            </mat-panel-title>
+          
+          </mat-expansion-panel-header>
+          <a mat-list-item href="#">Invoice</a>
+        
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="adminPanelOpenState = true"
+        (closed)="adminPanelOpenState = false">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            Administration
+        </mat-panel-title>
+
+          </mat-expansion-panel-header>
+        <a mat-list-item href="#">Security</a>
+
+          </mat-expansion-panel>
+
+        </mat-accordion>  
+
+   
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+       >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+     <div class="flex-end">
+       
+      <button (click)="LogOut()" mat-flat-button color="warn" aria-label="Example icon button with a filter list icon">
+        <mat-icon>lock_open</mat-icon> Logout
+      </button>
+     </div>
+    </mat-toolbar>
+    <div class="padding-10">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+</ng-template>
+
+
+<ng-template #unAuthicatedUser>
+ <router-outlet></router-outlet>
+</ng-template>
+
+<ng-container *ngIf="auth.IsAuthenticated() then AuthicatedUser else unAuthicatedUser" >
+
+</ng-container>
+

@@ -1,0 +1,31 @@
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+    width: 200px;
+  }
+  
+ 
+  
+  .mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .mat-expansion-panel:not([class*=mat-elevation-z]){
+    box-shadow: none;
+  }
+  .padding-10{
+    padding:25px;
+  }
+  .flex-end{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  .margin-lr-5{
+    padding:  0 5px;
+  }
+
+  

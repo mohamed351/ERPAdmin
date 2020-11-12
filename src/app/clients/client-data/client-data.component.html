@@ -1,0 +1,56 @@
+
+<a mat-flat-button color="primary" class="button-create" routerLink="/client/Create"> Create Client</a>
+
+<mat-table [dataSource]="dataSource" >
+
+  <ng-container matColumnDef="image">
+    <mat-header-cell *matHeaderCellDef > image </mat-header-cell>
+    <mat-cell *matCellDef="let row" > 
+      <ng-container *ngIf="row.image != null">
+      <img [src]="'data:image/png;base64,'+row.image"  class="image-thumbnail" />  
+    </ng-container>
+
+    <ng-container *ngIf="row.image == null">
+      <img src="../../../assets/noImage.png"  class="image-thumbnail" />    
+    </ng-container>
+ 
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="client">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Client </mat-header-cell>
+    <mat-cell *matCellDef="let row" > {{row.client}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef > Phone </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="fax">
+    <mat-header-cell *matHeaderCellDef > fax </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.fax}} </mat-cell>
+  </ng-container>
+  
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef > </mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+        <a mat-flat-button color="primary"  [routerLink]="['/client/Edit/',row.id]"> Edit </a> 
+        |
+        <a mat-flat-button color="warn"  [routerLink]="['/client/Edit/',row.id]"> Delete  </a>
+      
+      </mat-cell>
+    </ng-container>
+
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+  [length]="tableSize"
+  [pageIndex]="0"
+  [pageSize]="10"
+  (page)="Testing($event)"
+>
+</mat-paginator>

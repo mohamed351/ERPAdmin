@@ -1,0 +1,6 @@
+.card-element{
+    width: 250px;
+    height: 25vh;
+    display: inline-block;
+    margin: 10px;
+}
